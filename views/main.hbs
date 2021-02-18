@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+
+    <title>Black Jack</title>
+</head>
+<div>
+    <h1 style="font-weight: 600; font-size: 100px;">BlackJack</h1>
+    <div id="container" class="container-box">
+        
+    </div>
+    <div class="newcont">
+        <button id="deal" class="buttonbox" onclick="frontEndCards()">Deal Cards</button>
+        <button id="draw" class="buttonbox" onclick="hitCard()">Hit</button>
+        <button id="stand" class="buttonbox" onclick="stand()" >Stand</button>
+        <button id="replay" class="buttonbox" onclick="replay()">Replay</button>
+    </div>
+    <div class="game">
+    <div id="mycards" class="mycards"></div>
+    <div id="hiscards" class="hiscards"></div>
+    </div>
+    <div class="resultcontainer">
+        <div id="myresult" class="cardsinfo"></div>
+        <div id="hisresult" class="cardsinfo"></div>
+    </div>
+</div>
+
+<div>
+   <tr class="border">
+       <th>Wins</th>
+       <th>Draws</th>
+       <th>Losses</th>
+   </tr>
+
+   <tr>
+       <td><span id="wins">0</span></td>
+       <td><span id="draws">0</span></td>
+       <td><span id="losses">0</span></td>
+   </tr>
+
+</div>
+
+<div class="finalresults">
+   
+   <form action="/submitscore" method="POST">
+                   
+                    <div class="form-group">
+                      <th>Points</th>
+                        <label for="points" id="points">0</label>
+                        <input type="text" class="form-control" id="score-submit" name="score" hidden>
+                    </div>
+
+                                       
+                    <button type="submit" class="btn btn-primary">Post Score</button>
+                   
+                </form>
+
+</div>
+
+
+
+<div>
+     {{#if message1}}
+        <h4 class="alert alert-danger mt-4">{{message1}}</h4>
+        {{/if}}
+
+     {{#if message2}}
+        <h4 class="alert alert-success mt-4">{{message2}}</h4>
+        {{/if}}
+
+    {{#if message}}
+        <h4 class="alert alert-success mt-4">{{message}}</h4>
+        {{/if}}
+</div>
+
+<div>
+    <a href="/leaderboards">Leaderboards</a>
+    <a href="/logout">Log Out</a>
+</div>
+
+</body>
+
+<script src="./javascript.js">>
+  
+
+</script>
+
+</html>

@@ -142,8 +142,7 @@ function calcValues() {
     for (i = 0; i < myCards.length; i++) {
       myValue = myValue + cardDatabase[myCards[i]].valued;
     }
-    
-  
+     
 
   } else for (i = 0; i < myCards.length; i++) {
     myValue = myValue + cardDatabase[myCards[i]].valued;
@@ -214,6 +213,7 @@ function frontEndCards() {
   deal = false;
   stand();
   showScore();
+  checkPoints()
 }
 
 function hitCard() {
@@ -243,6 +243,7 @@ function hitCard() {
     standAct = false;
     showHisResults();
     revealCard();
+    checkPoints()
   }
   if (myTotal === 21) {
     revealCard();
@@ -304,6 +305,7 @@ function botDecision() {
   if (hisTotal > 21) {
     document.getElementById("container").innerHTML = "YOU WIN";
     wins = wins + 1;
+    checkPoints()
   }
   if (myTotal < 21 && hisTotal > myTotal && hisTotal < 22) {
     document.getElementById("container").innerHTML = "YOU LOOSE";
@@ -368,6 +370,7 @@ function showScore() {
 
 function checkPoints() {
   let points = (wins*3)+(draws)-(losses*3);
+
 
   document.getElementById("points").innerHTML = points;
   document.getElementById("score-submit").value = points;

@@ -1,6 +1,5 @@
 const express = require("express");
 
-
 const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs");
@@ -33,8 +32,7 @@ router.get('/', (req, res) => {
             //const username = decoded.username
     
             db.query('SELECT * FROM users WHERE id = ?', [id], async (error, results) => {
-            //console.log(results);
-            
+            //console.log(results);           
             
                 
                 const name = results[0].username;
@@ -62,7 +60,6 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/registeredUser', async(req, res) => {
-
     
         
     const { username, email, password, passwordConfirm } = req.body;
@@ -108,10 +105,8 @@ router.post('/registeredUser', async(req, res) => {
             })
               
           }
-    });
+    })  
     
-    
-
     
 })
 
@@ -152,7 +147,6 @@ router.post('/game', (req, res) => {
                     ),
                     httpOnly: true
                 }
-
 
 
                 res.cookie('jwt', token, cookieOptions);
@@ -225,61 +219,42 @@ router.get('/leaderboards', (req, res) => {
     
     let y;
     
-    db.query('SELECT *, highscore FROM users', (error, results) => {
+    db.query('SELECT *, highscore FROM users ORDER BY highscore DESC', (error, results) => {
         //console.log(results);
-        var tableNames = [];
-        var tableScores = [];
+      let highScoreList = []
         
         for (let i = 0; i < results.length; i++) {
             
             let name = results[i].username;
             let highscore = results[i].highscore;
+            
             if (highscore!==null){
 
-            
-            tableNames.push(name);
-            tableScores.push(highscore);
+            let obj = {name: results[i].username, highscore:results[i].highscore }
+            highScoreList.push(obj)
+            //tableNames.push(name);
+            //tableScores.push(highscore);
             }
 
-          }
-        
-          //points.sort(function(a, b){return b-a});
-                   
-            //res.status(200).redirect("/")
-            res.status(200).render('leaderboards', {
+        }
+           
+
+        res.status(200).render('leaderboards', {
                
                 
-                name1: tableNames[0],
-                score1: tableScores[0],
-                name2: tableNames[1],
-                score2: tableScores[1],
-                name3: tableNames[2],
-                score3: tableScores[2],
-                name4: tableNames[3],
-                score4: tableScores[3],
-                name5: tableNames[4],
-                score5: tableScores[4],
-                name6: tableNames[5],
-                score6: tableScores[5],
-                name7: tableNames[6],
-                score7: tableScores[6],
-                name8: tableNames[7],
-                score8: tableScores[7],
-                name9: tableNames[8],
-                score9: tableScores[8],
-                name10: tableNames[9],
-                score10: tableScores[9],
-
-                
+            names: ()=>{let stringResult=""
+                highScoreList.forEach((el) => {
+                    //console.log(el.name)
+                    //console.log(el.highscore)
+                    return stringResult+=`[${el.name} - ${el.highscore}] `
+                  });
+                  return stringResult
+                }
+            //scores: tableScores,                               
                          
-            })
-
-        
-        
-    
-        
+        })      
+                   
     })
-
 
 })
 

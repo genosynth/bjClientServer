@@ -106,6 +106,7 @@ h2 {
 
 .finalresults {
     font-size: 30px;
+   transform: rotate();
 }
 
 a.hover {
